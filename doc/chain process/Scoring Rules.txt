@@ -1,0 +1,2 @@
+When we score a chain, we shall do so in a naive fashion, initially. For each good feature, we will grant a point.
+Later, we shall adjust it to make the app work optimally.
