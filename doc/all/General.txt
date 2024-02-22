@@ -1,0 +1,5 @@
+This is /src/lib/all/General's description:
+
+I basically wanted to create a library with generally used functions. However, since it's not that urgent to me to make
+it a library necessarily, I will begin with simply writing there the functions and classes that I want, and then maybe
+I will turn it into a library.
