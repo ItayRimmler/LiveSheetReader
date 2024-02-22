@@ -1,0 +1,9 @@
+This is /src/lib/all/g's description:
+
+I basically wanted to create a library with generally used functions. However, since it's not that urgent to me to make
+it a library necessarily, I will begin with simply writing there the functions and classes that I want, and then maybe
+I will turn it into a library.
+
+I also make this the script for common importing, so I won't have to write 'import numpy as np' every script.
+
+I changed its name to g from General so I won't have to write 'General.np' all the time.
