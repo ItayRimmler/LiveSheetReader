@@ -119,3 +119,6 @@ class Chain:
                         temp.append(j)
         print(temp)
         return g.np.delete(self.val, temp)
+
+    def __gt__(self, other):
+        self.val = g.npfy([x for x in self.val if x.index > other])
