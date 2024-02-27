@@ -1,0 +1,4 @@
+This is /src/lib/all/Note.py's description:
+
+The .py file contains the Note class. It has type ("Do", "Re" etc.), index within the page, grp (group) within the page
+(every 5 staves is a group) and ngrp (number of groups) within a page.

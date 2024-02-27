@@ -4,7 +4,6 @@ def cat(a, b):
     a.append(npfy(b))
     return a
 
-
 def npfy(a):
     return np.array(a)
 
@@ -38,3 +37,8 @@ def about_the_same(a, b, relativity):
     if np.abs(a - b) <= relativity:
         return True
     return False
+
+def set(l):
+    for e in l:
+        e = npfy(e)
+    return npfy(l)

@@ -1,0 +1,6 @@
+This is /src/lib/chain_process/SubSeries.py's description:
+
+Umm... I'm not entirely sure that this class is necessary, but I kept it anyway. It helps me with the match method in
+the Chain class. It's basically like a Chain, but with less properties and methods. I think the only note-worthy to
+mention difference is that .val here is a list and not a np.array. But other than that, just look at the doc of Chain
+at /doc/chain process/Chain.txt to learn more about the SubSeries.
