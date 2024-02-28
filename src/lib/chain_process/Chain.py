@@ -62,7 +62,7 @@ class Chain:
         return self.val.shape[0]
 
     def calc_score(self):
-        if 0 in self.index():
+        if 0 in self.index() or 0 in self.grp():
             return
         self.score = 0
         for i in self.index():
@@ -80,9 +80,15 @@ class Chain:
         for e in self.val:
             e.ngrp += value
 
-    def insert(self, ind, vals):
+    def insert_i(self, ind, vals):
         for i, v in enumerate(self.val[ind]):
             v.index = vals[i]
+        self.sort()
+        self.update_cont()
+
+    def insert_t(self, ind, vals):
+        for i, v in enumerate(self.val[ind]):
+            v.type = vals[i]
         self.sort()
         self.update_cont()
 
