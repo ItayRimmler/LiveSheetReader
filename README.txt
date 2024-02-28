@@ -46,3 +46,7 @@ config - contains:
 
 docs - contains documentations, except for the README.
 
+temp - may contain some temporary files, only during the run of the program.
+
+assets - contains pdf files that we want to work with.
+
