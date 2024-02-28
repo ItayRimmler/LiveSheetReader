@@ -1,0 +1,7 @@
+This is /src/lib/all/MusicSheet.py's description:
+
+The MusicSheet class is basically a comfortable way for us to load a pdf file that contains multiple pages of a music
+sheet.
+
+This object has a list property called "pages", that contains each and every page from the pdf file, and a current_page
+property, which indicates the index of the current page we're using.

@@ -62,9 +62,9 @@ class Chain:
         return self.val.shape[0]
 
     def calc_score(self):
+        self.score = 0
         if 0 in self.index() or 0 in self.grp():
             return
-        self.score = 0
         for i in self.index():
             if i == -1:
                 self.score -= BAD_NOTE
@@ -85,12 +85,14 @@ class Chain:
             v.index = vals[i]
         self.sort()
         self.update_cont()
+        self.calc_score()
 
     def insert_t(self, ind, vals):
         for i, v in enumerate(self.val[ind]):
             v.type = vals[i]
         self.sort()
         self.update_cont()
+        self.calc_score()
 
     def match(self, other):
         matched_notes = []

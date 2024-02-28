@@ -29,11 +29,13 @@ src - contains:
 				- audio process - contains scripts that process audio
 				- chain process - contains scripts that process chains
 				- image process - contains scripts that process images
+				- pdf process - contains scripts that process pdf files
 				- all process - contains scripts that help us process any of the above
 		- lib - contains:
 				- audio process - contains libraries that process audio
 				- chain process - contains libraries that process chains
 				- image process - contains libraries that process images
+				- pdf process - contains libraries that process pdf files
 				- all process - contains libraries that help us process any of the above
 
 config - contains:
