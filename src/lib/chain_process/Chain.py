@@ -26,6 +26,12 @@ class Chain:
             self.calc_score()
             return self
 
+    def __sub__(self, other):
+        if isinstance(other, int):
+            mask = self.val != other
+            self.val = self.val[mask]
+            return self
+
     def type(self):
         v_array = []
         for v in self.val:
@@ -42,6 +48,12 @@ class Chain:
         v_array = []
         for v in self.val:
             v_array.append(v.grp)
+        return g.npfy(v_array)
+
+    def med(self):
+        v_array = []
+        for v in self.val:
+            v_array.append(v.med)
         return g.npfy(v_array)
 
     def ngrp(self):
@@ -96,24 +108,34 @@ class Chain:
 
     def match(self, other):
         matched_notes = []
+        old_other = other.val
+        other.val = other.val[other.med() != True]
+        already_matched = self.val[self.med() == True]
+        self.val = self.val[self.med() == False]
         previous_longest_subseries_length = 0
         list_of_subseries = []
         for k, note in enumerate(self.val):
             for i in range(len(other.type())):
                 if note.type == other.type()[i]:
+                    other.val[i].med = True
                     list_of_subseries.append(SubSeries.SubSeries(other.val[i]))
                     for j in range(i, len(other.type())):
                         if k < self.len() - 1:
                             if self.val[k + 1].type == other.val[j].type:
+                                other.val[j].med = True
                                 list_of_subseries[-1] + other.val[j]
                                 self.val = g.np.delete(self.val, k + 1)
             for subseries in list_of_subseries:
                 new_longest_subseries_length = max(previous_longest_subseries_length, len(subseries.val))
                 if not new_longest_subseries_length == previous_longest_subseries_length:
                     for sub_note in subseries.val:
+                        sub_note.med = True
                         matched_notes.append(sub_note)
                 previous_longest_subseries_length = new_longest_subseries_length
+        other.val = old_other
         self.val = g.npfy(matched_notes)
+        for n in already_matched:
+            self + n
         self.sort()
         self.update_cont()
         self.calc_score()
@@ -125,8 +147,11 @@ class Chain:
                 for j in range(i + 1, self.len()):
                     if note == self.val[j]:
                         temp.append(j)
-        print(temp)
         return g.np.delete(self.val, temp)
+
+    def unmatch(self):
+        for i in self.val:
+            i.med = False
 
     def __gt__(self, other):
         self.val = g.npfy([x for x in self.val if x.index > other])

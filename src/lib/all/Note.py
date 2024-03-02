@@ -9,4 +9,5 @@ class Note:
         self.grp = group
         self.type = type
         self.index = index
+        self.med = False
 

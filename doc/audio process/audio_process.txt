@@ -8,3 +8,21 @@ In the time of making this txt file, everything is still kind of vague and incom
 implemented with time. This is a temporary setup I will work with.
 
 I currently want to create fictional chains, and see how will the workflow look like.
+
+Update:
+Several functions were added to the script:
+
+process_tempo - turns the tempo into time.
+
+TB_get_input_with_timeout - as the name implies, it gets input within a time frame. The input supposed to be audio, but
+in order to test bench, and since I didn't add a real audio processing code, the input is going to be from the keyboard.
+
+TB_play_caps - converts capital letters into note types.
+
+get_input_for_k_seconds - the name implies what this function does. As you can see, I commented a line there. This line
+will be the line that saves the note from an audio input. But for now, the input is from TB_get_input_with_timeout.
+
+turn_over_page - compares in a loop the input, to the image, and returns true if there's a strong enough match. The
+threshold may change in future versions. input_chain_list is a list, containing sub-lists of chains. Each sub-list is
+the chains made in x seconds. Each chain inside the sub-list is made in k seconds. For now, x == k. This may change in
+future versions.

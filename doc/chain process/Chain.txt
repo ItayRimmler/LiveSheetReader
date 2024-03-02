@@ -79,3 +79,11 @@ and change it, I kept it this way. If we played two inputs: [Do Re] and [Do Re M
 [1, 2] [3, 4, 5, 6] and not as the less likely to happen [1, 2] [1, 2, 5, 6]? Simple! We will remove from
 Chain_from_sheet notes [1, 2] after matching them... But this is outside the scope of the match method, and likely will
 be explained in a more relevant doc (if it wasn't, refer to itay.rimmler@gmail.com for corrections).
+
+Update:
+
+Added the .med() method.
+
+Adjusted the match method to:
+    a. Match only notes with .med == False.
+    b. Turn the .med field to True for matched notes: both in self, and in other.
