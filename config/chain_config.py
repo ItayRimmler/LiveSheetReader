@@ -29,4 +29,4 @@ BAD_NOTE = 0.5
 
 
 def GROUP_SCORE(gr, ngr):
-    return math.exp(ngr - gr)
+    return math.exp(gr) * ngr

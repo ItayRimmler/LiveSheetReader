@@ -62,16 +62,13 @@ def turn_over_page(tempo, page):
                 page.unmatch()
                 page = og_page
         input_chain_list.append(get_input_for_k_seconds(tempo*2))
-        for a in input_chain_list:
-            for b in a:
-                temp = b.med()
-                b.match(page)
-                if not g.np.all(temp == b.med()):
-                    score.append(b.score)
-        for a in input_chain_list:
-            for b in a:
-                print(b.type())
-        if sum(score) > 0.004 * page.score:
+        for b in input_chain_list[-1]:
+            temp = b.med()
+            page = b.match(page)
+            b.calc_score()
+            if not g.np.all(temp == b.med()):
+                score.append(b.score)
+        if sum(score) > 0.01 * page.score:
             return True
 
 def get_input_for_k_seconds(k):

@@ -9,9 +9,6 @@ from src.app.image_process.image_process import TB_recieve_notes_from_file
 
 tempo = process_tempo(40)
 
-
-# DONT FORGET TO UPDATE CHAIN DOC, AND AUDIO PROCESS DOC, AND COMMIT, ALL AFTER U MADE SURE EVERYTHING WORKS
-
-
-
 turn_over_page(tempo, TB_recieve_notes_from_file())
+
+

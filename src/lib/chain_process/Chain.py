@@ -36,7 +36,7 @@ class Chain:
         v_array = []
         for v in self.val:
             v_array.append(v.type)
-        return g.npfy(v_array)
+        return v_array
 
     def index(self):
         v_array = []
@@ -77,9 +77,6 @@ class Chain:
         self.score = 0
         if 0 in self.index() or 0 in self.grp():
             return
-        for i in self.index():
-            if i == -1:
-                self.score -= BAD_NOTE
         self.score += SUBSET_LENGTH(self) * SUBSET_SCORE(self)
         for i in range(self.len()):
             self.score += GROUP_SCORE(self.grp()[i], self.ngrp())
@@ -106,39 +103,125 @@ class Chain:
         self.update_cont()
         self.calc_score()
 
+
     def match(self, other):
-        matched_notes = []
-        old_other = other.val
-        other.val = other.val[other.med() != True]
-        already_matched = self.val[self.med() == True]
-        self.val = self.val[self.med() == False]
-        previous_longest_subseries_length = 0
-        list_of_subseries = []
-        for k, note in enumerate(self.val):
-            for i in range(len(other.type())):
-                if note.type == other.type()[i]:
-                    other.val[i].med = True
-                    list_of_subseries.append(SubSeries.SubSeries(other.val[i]))
-                    for j in range(i, len(other.type())):
-                        if k < self.len() - 1:
-                            if self.val[k + 1].type == other.val[j].type:
-                                other.val[j].med = True
-                                list_of_subseries[-1] + other.val[j]
-                                self.val = g.np.delete(self.val, k + 1)
-            for subseries in list_of_subseries:
-                new_longest_subseries_length = max(previous_longest_subseries_length, len(subseries.val))
-                if not new_longest_subseries_length == previous_longest_subseries_length:
-                    for sub_note in subseries.val:
-                        sub_note.med = True
-                        matched_notes.append(sub_note)
-                previous_longest_subseries_length = new_longest_subseries_length
-        other.val = old_other
-        self.val = g.npfy(matched_notes)
-        for n in already_matched:
-            self + n
-        self.sort()
-        self.update_cont()
-        self.calc_score()
+        med_notes = None  # This will be a chain of notes that we will return
+        flag = False  # A flag that signifies if we already opened a chain or not
+        notes = self.val
+        onotes = other.val  # other notes
+        note_subseries = []  # a list of chains from notes
+        other_note_subseries = []  # a list of chains from other notes
+        ind_subseries = []  # the indices of the notes in the chains inside note_subseries
+        ind_subseries_o = []  # ditto, but this will not be manipulated
+        done = []  # a list of indices inside ind_subseries_o that are done
+        other_ind_subseries = []  # the indices of the notes in the chains inside other_note_subseries
+        med_ind = []  # indices from ind_subseries that are marked potentially as matched
+        med_other_ind = []  # indices from other_ind_subseries that are marked potentially as matched
+        ind_of_max = 0  # index of the maximum length chain
+        max_len_of_subseries = 0  # the maximum length of a chain
+        ## SEGMENT ZERO ##
+        already_matched = onotes[other.med() == True]
+        onotes = onotes[other.med() == False]
+        ## SEGMENT A1 ##
+        for i in range(self.len() + 1):
+            for j in range(self.len() + 1):
+                if j < i:
+                    note_subseries.append(Chain(notes[j]))
+                    for k in range(j + 1, i):
+                        note_subseries[-1] + notes[k]
+                    series = []
+                    for k in range(j, i):
+                        series.append(k)
+                    ind_subseries.append(series)
+                    ind_subseries_o.append(series)
+        ## SEGMENT A2 ##
+        for i in range(onotes.shape[0] + 1):
+            for j in range(onotes.shape[0] + 1):
+                if j < i:
+                    other_note_subseries.append(Chain(onotes[j]))
+                    for k in range(j + 1, i):
+                        other_note_subseries[-1] + onotes[k]
+                    series = []
+                    for k in range(j, i):
+                        series.append(k)
+                    other_ind_subseries.append(series)
+        while True:
+            ## SEGMENT B ##
+            for k, sub in enumerate(note_subseries):
+                for q, osub in enumerate(other_note_subseries):
+                    if osub.len() == sub.len():
+                        if osub.type() == sub.type():
+                            if not (k in done):
+                                med_ind.append(ind_subseries[k])
+                            med_other_ind.append(other_ind_subseries[q])
+                            break
+            ## SEGMENT C1 ##
+            if len(med_other_ind) == 0:
+                notes[0].index = -1
+                med_notes = Chain(notes[0])
+                for note in notes[1:]:
+                    if note.index == 0:
+                        note.index = -1
+                        med_notes + note
+                break
+            ## SEGMENT C2 ##
+            if len(med_ind) == 0:
+                break
+            ## SEGMENT D ##
+            subseries_lengths = [len(i) for i in med_ind]
+            for j, i in enumerate(subseries_lengths):
+                if i > max_len_of_subseries:
+                    max_len_of_subseries = i
+                    ind_of_max = j
+            ## SEGMENT E1 ##
+            if not med_notes:
+                flag = True
+                onotes[med_other_ind[ind_of_max]][0].med = True
+                med_notes = Chain(onotes[med_other_ind[ind_of_max][0]])
+            ## SEGMENT E2 ##
+            if flag:
+                for i in onotes[med_other_ind[ind_of_max][1:]]:
+                    i.med = True
+                    med_notes + i
+            ## SEGMENT E3 ##
+            else:
+                for i in onotes[med_other_ind[ind_of_max]]:
+                    i.med = True
+                    med_notes + i
+            ## SEGMENT E4 ##
+            flag = False
+            ## SEGMENT F1 ##
+            for k, sub in enumerate(ind_subseries):
+                if any(element in sub for element in med_ind[ind_of_max]):
+                    done.append(k)
+            ## SEGMENT F2 ##
+            temp = []
+            ## SEGMENT F3 ##
+            for q, osub in enumerate(other_ind_subseries):
+                if not any(element in osub for element in med_other_ind[ind_of_max]):
+                    temp.append(q)
+            ## SEGMENT F4 ##
+            other_ind_subseries = [other_ind_subseries[i] for i in temp]
+            ## SEGMENT F5 ##
+            other_note_subseries = [other_note_subseries[i] for i in temp]
+            ## SEGMENT G ##
+            if len(other_ind_subseries) == 0:
+                for note in notes:
+                    if note.index == 0:
+                        note.index = -1
+                        med_notes + note
+                break
+            ## SEGMENT H ##
+            med_ind = []
+            med_other_ind = []
+            max_len_of_subseries = 0
+        ## SEGMENT I ##
+        other.val = onotes
+        for i in already_matched:
+            other + i
+        other.sort()
+        self.val = med_notes.val
+        return other
 
     def delete_duplicates(self):
         temp = []

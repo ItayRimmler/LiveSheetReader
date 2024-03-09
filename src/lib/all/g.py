@@ -24,7 +24,6 @@ def f(x, function):
     return function(x)
 
 
-
 def length(end, beginning):
     return end - beginning
 
@@ -42,3 +41,4 @@ def set(l):
     for e in l:
         e = npfy(e)
     return npfy(l)
+

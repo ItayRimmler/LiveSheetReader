@@ -87,3 +87,56 @@ Added the .med() method.
 Adjusted the match method to:
     a. Match only notes with .med == False.
     b. Turn the .med field to True for matched notes: both in self, and in other.
+
+Update:
+
+Changed the match method drastically. I did so because there were a lot of errors with the previous version, and I
+couldn't solve them. I wrote a new method, it's slower, but it was perfected.
+
+Here's a description of the new algorithm (there should be comments of the meaning of each variable and comments that
+show in which segment we are in the code):
+- SEGMENT ZERO:
+We take only the notes that weren't matched in previous calls of the method, and save the rest in already_matched.
+- SEGMENT A1:
+Creating each possible series of notes to notes_subseries. For example, if the notes are: [Do, Re, Mi] notes_subseries
+will contain the chains: [Do], [Re], [Mi], [Do, Re], [Re, Mi], [Do, Re, Mi]. It won't contain [Do, Mi] because this is
+not a series because it's not continous.
+- SEGMENT A2:
+Just like segment A1, but the subseries (chains) are created from onotes and stored in other_notes_subseries.
+- SEGMENT B:
+A while loop starts. We save in med_ind only the indices of subseries that are fully matching (in size and types), and
+weren't matched already in this call of the method.
+- SEGMENT C1:
+We check if med_other_ind is zero, meaning we didn't find any match to the remaining notes. Therefore, we index them as
+-1.
+- SEGMENT C2:
+Had there matches, but they're already done, med_other_ind shall not be zero, but med_ind shall. In this case, we simply
+break the while loop.
+- SEGMENT D:
+We check which subseries is the longest. We save its index in ind_of_max.
+- SEGMENT E1:
+We check whether we initialized med_notes already. If not, we need to initialize it properly, by creating the chain with
+its first note being the first element of our chosen subseries.
+- SEGMENT E2:
+Flag implies that we just initialized med_notes just like in E1. So now we need to add only notes [1:] of the subseries.
+- SEGMENT E3:
+If flag is false, we just add the subseries to med_notes.
+- SEGMENT E4:
+We make sure that flag won't be raised again, as med_notes is a chain for sure.
+- SEGMENT F1:
+We add to done each subseries that has any of the matched notes.
+- SEGMENT F2:
+Initializing temp list.
+- SEGMENT F3:
+We add to temp each subseries that has any of the matched onotes.
+- SEGMENT F4:
+We update other_ind_subseries to exclude anything in temp.
+- SEGMENT F5:
+We update other_note_subseries to exclude anything in temp.
+- SEGMENT G:
+We try to break earlier, by checking if other_ind_subseries is empty, and if so, we do what we did in C1.
+- SEGMENT H:
+We reset necessary arrays and variables.
+- SEGMENT I:
+Assuming we're out of the while loop, we return other, after we united it back with already_matched, and update self.val
+to be matched_notes.
