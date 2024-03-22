@@ -18,8 +18,8 @@ sheet = MusicSheet(pages=images)
 # Loading the dictionaries of the note harmonies
 
 # Audio Processing:
-# if turn_over_page:
+# if turn_over_page(tempo, TB_recieve_notes_from_file()):
 #    enter intermediate
-#    if turn_over_page:
+#    if turn_over_page(tempo, TB_recieve_notes_from_file()):
 #       exit intermediate
 #       sheet.next_page()
