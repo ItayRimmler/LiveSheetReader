@@ -9,6 +9,7 @@ from src.lib.audio_process.Sound import Sound
 from src.app.image_process.image_process import TB_recieve_notes_from_file
 from data.note_freqs_and_names import name, frequency
 
+print("test branch")
 page = TB_recieve_notes_from_file()
 tempo = process_tempo(60)
 my_sound = Sound(duration=tempo)
