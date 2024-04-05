@@ -10,4 +10,5 @@ I changed its name to g from General so I won't have to write 'General.np' all t
 
 Update:
 
-Added State class and an Event object. This allows us to follow the state of our state machine
+Added State class and an Event object. This allows us to follow the state of our state machine, just like in the diagram
+in assets.
