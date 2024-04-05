@@ -15,6 +15,6 @@ class MusicSheet:
         from cv2 import (imshow, setWindowProperty, waitKey, WND_PROP_TOPMOST as full)
         imshow("Loaded Image", self.pages[self.current_page])
         setWindowProperty("Loaded Image", full, 1)
-        waitKey(wait)
+        return waitKey(wait)
     def get(self):
         return self.pages[self.current_page]

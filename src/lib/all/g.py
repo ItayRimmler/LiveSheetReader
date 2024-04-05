@@ -1,5 +1,25 @@
 import numpy as np
 
+class State:
+    def __init__(self):
+        self.current = "Start"
+        self.log = []
+
+    def read(self):
+        return self.current
+
+    def get_log(self):
+        return self.log
+
+    def write(self, other):
+        self.log.append(self.current)
+        self.current = other
+        print(self.read())
+
+
+Event = State()
+
+
 def cat(a, b):
     a.append(npfy(b))
     return a
