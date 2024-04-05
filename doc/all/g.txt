@@ -7,3 +7,8 @@ I will turn it into a library.
 I also make this the script for common importing, so I won't have to write 'import numpy as np' every script.
 
 I changed its name to g from General so I won't have to write 'General.np' all the time.
+
+Update:
+
+Added State class and an Event object. This allows us to follow the state of our state machine, just like in the diagram
+in assets.
