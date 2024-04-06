@@ -4,10 +4,11 @@ from src.lib.chain_process import SubSeries
 from config.chain_config import *
 
 class Chain:
-    def __init__(self, value):
+    def __init__(self, value, page_num=1):
         self.val = g.npfy([value])
         self.cont = g.npfy([])
         self.score = 0
+        self.page_num = page_num
         if 0 not in self.index():
             self.calc_score()
 
