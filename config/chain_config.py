@@ -28,5 +28,5 @@ def SUBSET_SCORE(chain):
 BAD_NOTE = 0.5
 
 
-def GROUP_SCORE(gr, ngr):
-    return math.exp(gr) * ngr
+def GROUP_SCORE(gr):
+    return math.pow(gr, gr)

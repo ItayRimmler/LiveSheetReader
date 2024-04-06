@@ -80,7 +80,7 @@ class Chain:
             return
         self.score += SUBSET_LENGTH(self) * SUBSET_SCORE(self)
         for i in range(self.len()):
-            self.score += GROUP_SCORE(self.grp()[i], self.ngrp())
+            self.score += GROUP_SCORE(self.grp()[i])
         return True
 
     def can_I_add(self):

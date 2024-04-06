@@ -49,17 +49,20 @@ if sheet.pages.shape[0] > 1:  # True:
     g.Event.write("Remember 1")
     tempo = process_tempo(int(tempo))
     my_sound = Sound(duration=tempo)
+
     while not list(g.Event.read().split(" "))[-1] == str(sheet.pages.shape[0]):
         g.Event.write("Read Page " + list(g.Event.read().split(" "))[-1] + " Remember " + list(g.Event.read().split(" "))[-1])
         sheet.show()
         g.Event.write("Recording + Remember " + list(g.Event.read().split(" "))[-1])
-        if turn_over_page(image_notes[int(list(g.Event.read().split(" "))[-1]) - 1][-1], my_sound, name, frequency):
+        my_image = image_notes[int(list(g.Event.read().split(" "))[-1]) - 1][-1]
+        if turn_over_page(my_image, my_sound, name, frequency):
             g.Event.write("Read Page " + str(int(list(g.Event.read().split(" "))[-1]) + 1) + " Remember " + str(int(list(g.Event.read().split(" "))[-1]) + 1))
             sheet.next_page()
             # change the windows, so they will be visible side by side here
             sheet.show()
             g.Event.write("Recording + Intermediate + Remember " + list(g.Event.read().split(" "))[-1])
-            if turn_over_page(image_notes[int(list(g.Event.read().split(" "))[-1]) - 1][0], my_sound, name, frequency):
+            my_image = image_notes[int(list(g.Event.read().split(" "))[-1]) - 1][0]
+            if turn_over_page(my_image, my_sound, name, frequency):
                 g.Event.write("Next Page + Remember " + list(g.Event.read().split(" "))[-1])
                 cv2.destroyAllWindows()
 
