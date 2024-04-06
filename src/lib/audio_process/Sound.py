@@ -33,7 +33,7 @@ class Sound:
         imax = g.np.argmax(fourier[0:i_end + 100])
         freq = (imax * f_s) / (file_length * counter)  # formula to convert index into sound frequency
         note = 0
-        for i in range(0, frequencies.size - 1):
+        for i in range(frequencies.shape[0] - 1):
             if (freq < frequencies[0]):
                 note = name[0]
                 break
