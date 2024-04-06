@@ -1,3 +1,5 @@
+# Considering my program is fully documented, committed, and I can already recognize one note at a time and match
+# chains:
 # TODO: Utilize more features in Github
 # TODO: Check out the app that does this already
 # TODO: Understand and credit the algoritm that you copied, build one that will suit you best: first one that gets one note at a time , then one that uses ML

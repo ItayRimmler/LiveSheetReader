@@ -8,11 +8,18 @@ class Sound:
         self.ch = int(channels)
         self.time = g.npfy(list(range(-self.sr, self.sr)))
         self.amp = g.np.zeros(self.time.shape)
-        self.famp = g.np.zeros(self.time.shape)
+        self.famp = None
         self.freq = g.np.zeros(self.time.shape)
         self.note = None
 
     def note_detect(self, frequencies, name):
+        # TODO: Figure out how (maybe use ML) to overcome the problem of misrecognizing harmonies.
+        # i'll explain:  i tried to recognize a note, and then reduce the fourier where it is to 0, then recognize
+        #another one. problem is it still may recognize the same note. sometimes it works as intended, but sometimes
+        #this mistake happens. i have a reason to believe that this mistake is simply the program recognizing a harmony
+        #of the note. now, why choose ML as a solution: a. its easy and can solve other problems b. lets say i go on the
+        #dumb way of reducing a Do note, and its harmonies. what happens if i play 2 notes that one of them is a harmony
+        #of the other? with ML, i can overcome this problem.
         file_length = self.amp.shape[0]
         f_s = self.sr  # sampling frequency
         sound = self.amp  # blank array
@@ -32,7 +39,6 @@ class Sound:
         i_end = i
         imax = g.np.argmax(fourier[0:i_end + 100])
         freq = (imax * f_s) / (file_length * counter)  # formula to convert index into sound frequency
-        note = 0
         for i in range(frequencies.shape[0] - 1):
             if (freq < frequencies[0]):
                 note = name[0]

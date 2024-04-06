@@ -41,6 +41,7 @@ def turn_over_page(page, my_sound, name, frequency):
 def get_input(my_sound, name, frequency):
     my_sound.record()
     my_sound.note_detect(frequency, name)
+    print(my_sound.note)
     note = Note(type=my_sound.note)
     c = Chain(note)
     return c
