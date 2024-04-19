@@ -1,5 +1,0 @@
-This is /src/app/pdf_process/pdf_process.py's description:
-
-Name of the file kinda implies everything.
-
-list_of_pdfs is the function that prints a list of pdfs and lets the user choose the pdf that he wants.

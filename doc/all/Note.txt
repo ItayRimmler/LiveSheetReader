@@ -1,7 +1,0 @@
-This is /src/lib/all/Note.py's description:
-
-The .py file contains the Note class. It has type ("Do", "Re" etc.), index within the page, grp (group) within the page
-(every 5 staves is a group) and ngrp (number of groups) within a page.
-
-I also added it the matched (med) property. We don't want to match the same note twice. And in the audio_process, we
-don't want to add the score of med notes.
