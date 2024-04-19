@@ -1,3 +1,0 @@
-This is /src/app/png_transformer/png_transformer.py's description:
-
-Has a function that returns us the list of images for the MusicSheet object.
