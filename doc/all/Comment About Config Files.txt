@@ -1,5 +1,0 @@
-So I realise now, after consulting with ChatGPT, that I don't really need config files...
-
-Uhh... I just thought they meant to store Constant Variables. Apparently it's for something else.
-
-So I'll just use my config files to store Constant Variables and nothing more.
