@@ -2,8 +2,9 @@
 # chains:
 # TODO: Utilize more features in Github
 # TODO: Check out the app that does this already
-# TODO: Understand and credit the algoritm that you copied, build one that will suit you best: first one that gets one note at a time , then one that uses ML
+# TODO: Understand and credit the algoritm that you copied from Amagnum, build one that will suit you best: first one that gets one note at a time , then one that uses ML
 # TODO: Finish audio process - doc - master - commit
+# TODO: Exceptions
 # Starting with importing the General functions and the libraries
 import cv2
 

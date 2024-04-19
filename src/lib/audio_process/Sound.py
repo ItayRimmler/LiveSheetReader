@@ -53,6 +53,58 @@ class Sound:
                     note = name[i + 1]
                 break
         self.note = note
+    def note_detect1(self, frequencies, name, chan):
+        # TODO: Document, rename, and decide what to do with this version, and what will the program actually work with
+        # explanation: note_detect is able to recognize 1 note at the time of recording. what if i play more than one
+        # note at the time of recording? what i initially did is deleted the detected peak, then ran this function again
+        # only to find out that it finds only one note correctly, and usually when it's wrong, it prints me the same
+        # note twice. therefore, i use ML in order to differ fundamentals from harmonies. now, how do i do that?
+        file_length = self.amp.shape[0]
+        f_s = self.sr  # sampling frequency
+        counter = chan  # number of channels mono/sterio
+        sound = self.amp  # blank array
+        sound = g.np.divide(sound, float(2 ** 15))  # scaling it to 0 - 1
+        fourier = g.np.fft.fft(sound)
+        fourier = g.np.absolute(fourier)
+        imax = g.np.argmax(fourier[0:int(file_length / 2)])  # index of max element
+        i_begin = -1
+        threshold = 0.3 * fourier[imax]
+        for i in range(0, imax + 100):
+            if fourier[i] >= threshold:
+                if (i_begin == -1):
+                    i_begin = i
+            if (i_begin != -1 and fourier[i] < threshold):
+                break
+        i_end = i
+        imax = g.np.argmax(fourier[0:i_end + 100])
+        if isinstance(self.famp, g.np.ndarray):
+            fourier = self.famp
+        flag = True
+        while flag:
+            imax = g.np.argmax(fourier[0:i_end + 100])
+            if fourier[imax - 1] == -1 or fourier[imax + 1] == -1:
+                fourier[imax] = -1
+            else:
+                flag = False
+        freq = (imax * f_s) / (file_length * counter)  # formula to convert index into sound frequency
+        for i in range(frequencies.shape[0] - 1):
+            if (freq < frequencies[0]):
+                note = name[0]
+                break
+            if (freq > frequencies[-1]):
+                note = name[-1]
+                break
+            if freq >= frequencies[i] and frequencies[i + 1] >= freq:
+                if freq - frequencies[i] < (frequencies[i + 1] - frequencies[i]) / 2:
+                    note = name[i]
+                else:
+                    note = name[i + 1]
+                break
+        self.note = note
+        print(note)
+        fourier[imax-10:imax+10] = -1
+        self.famp = fourier
+        return note, freq
 
 
     def record(self):
