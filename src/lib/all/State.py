@@ -7,6 +7,7 @@ class State:
     def __init__(self):
         self.current = "Start"
         self.log = []
+        self.num = 0
 
     def read(self):
         return self.current
@@ -20,3 +21,6 @@ class State:
 
     def show(self):
         print(self.current)
+
+    def advance(self):
+        self.num += 1
