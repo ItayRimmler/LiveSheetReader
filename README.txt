@@ -1,3 +1,5 @@
+VERSION 2 IS UNDER CONSTRUCTION! STAY PATIENT!
+
 This file has two purposes:
 1. It'll generally explain the project
 2. It'll give the table of contents for the project's structure
