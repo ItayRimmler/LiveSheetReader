@@ -15,3 +15,8 @@ class Sound:
         recording = sd.rec(int(c.DUR * self.tempo * c.SR), samplerate=c.SR, channels=c.CH, dtype='int16')
         sd.wait()
         self.values = recording[:, 0]
+
+    def send_to_cpp(self):
+        path = "../../../data/recording.bin"
+        with open(path, 'wb') as file:
+            self.values.tofile(file)

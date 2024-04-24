@@ -9,5 +9,6 @@ def process_tempo(tempo):
 
 def get_input(my_sound, name, frequency):
     my_sound.record()
+    my_sound.send_to_cpp()
     #my_sound.note_detect(frequency, name)
     #note = Note(type=my_sound.note)

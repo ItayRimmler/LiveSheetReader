@@ -11,6 +11,13 @@ from cv2 import destroyAllWindows as daw
 # Audio Process imports:
 from ver2.src.app.audio_process.audio_process import process_tempo
 from ver2.src.lib.audio_process.Sound import Sound
+import subprocess as sp
+
+s = Sound(1)
+s.record()
+s.send_to_cpp()
+sp.run("main.exe")
+
 
 # Reading the file (PDF Process):
 temp, tempo = list_of_pdfs()
