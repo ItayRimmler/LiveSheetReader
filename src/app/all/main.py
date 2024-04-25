@@ -9,11 +9,11 @@ from ver2.src.app.pdf_process.png_transformer import *
 from ver2.src.lib.pdf_process.MusicSheet import *
 from cv2 import destroyAllWindows as daw
 # Audio Process imports:
-from ver2.src.app.audio_process.audio_process import process_tempo
+from ver2.src.lib.audio_process.audio_process import process_tempo
 from ver2.src.lib.audio_process.Sound import Sound
 import subprocess as sp
 
-s = Sound(1)
+s = Sound(0.002)
 s.record()
 s.send_to_cpp()
 sp.run("main.exe")
