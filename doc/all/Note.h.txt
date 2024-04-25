@@ -1,0 +1,5 @@
+This is ver2\src\lib\all\Note.h's description:
+
+Contains the Note class.
+Notes have index, group and type ("Do", "Re", ...).
+The header file contains also constructors and getter\setter methods.

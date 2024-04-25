@@ -1,0 +1,4 @@
+This is ver2\src\lib\all\State.py's description:
+
+Our program is one big state machine. And so, I defined a State class, with simple methods, and I created a State object
+called Event in g.py. This object remembers our state in the state machine, logs it, and updates it when needed.

@@ -1,4 +1,6 @@
-This is /src/lib/all/g's description:
+This is ver2/src/lib/all/g's description:
 
 A file that contains generally (hence the name) used function and libraries. Will be auto included in every python
 script in this program.
+
+Also contains a State object "Event", to remember our state.

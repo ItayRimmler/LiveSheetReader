@@ -1,0 +1,7 @@
+This is ver2/src/app/all/main.cpp's (and therefore, ver2/src/app/all/main.exe and obj's) description:
+
+This is the main file that will:
+A. Analyse the PNG and extract notes from it.
+B. STFT audio from python and extract notes from it.
+C. Turn these notes into chains.
+D. Match the notes and decide whether to turn over the page or not.
