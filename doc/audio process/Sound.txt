@@ -1,5 +1,3 @@
-This is /src/lib/audio_process/Sound.py's description:
+This is ver2/src/lib/audio_process/Sound.py's description:
 
-I want to create a Sound object that tells me if mic is open. It will also have a property that says which sound was
-made.
-
+Sound objects are what recording audio, save the data as an array, then finally send it to cpp for process.

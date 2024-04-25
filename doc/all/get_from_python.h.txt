@@ -1,0 +1,4 @@
+This is ver2/src/lib/all/get_from_python.h's description:
+
+A header file that contains EVERY function that preprocesses data that came from python and makes it valid to use in
+C++.
