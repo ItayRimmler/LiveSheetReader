@@ -2,8 +2,6 @@
 from ver2.src.lib.all import g
 from ver2.src.lib.all import constants as c
 
-# Imports that are specific to this script:
-from ver2.src.lib.all.Note import Note
 def process_tempo(tempo):
     return 60/tempo
 
