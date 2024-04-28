@@ -8,11 +8,12 @@
 
 using namespace std;
 
-vector<int> Divide(vector<int> sub){
+vector<complex<double>> Divide(vector<complex<double>> sub){
     if (static_cast<int>(sub.size()) > 1){
-        vector<int> subodd;
-        vector<int> subeven;
-        for (int i = 0; i <static_cast<int>(sub.size()); i++){
+        vector<complex<double>> subodd;
+        vector<complex<double>> subeven;
+        int N = static_cast<int>(sub.size());
+        for (int i = 0; i <N; i++){
             if (i%2 == 0){
                 subeven.push_back(sub[i]);
             } else {
@@ -21,29 +22,31 @@ vector<int> Divide(vector<int> sub){
         }
         subodd = Divide(subodd);
         subeven = Divide(subeven);
-        vector<int> result;
-        for (int i = 0; i <(static_cast<int>(sub.size())/2); i++){
-            result.push_back(subodd[i]);
-            result.push_back(subeven[i]);
+        vector<complex<double>> result(N);
+        for (size_t k = 0; k < N / 2; k++) {
+            complex<double> t = polar(1.0, -2 * 3.141592653589793238460 * k / N) * subodd[k];
+            result[k] = subeven[k] + t;
+            result[k + N / 2] = subeven[k] - t;
         }
         return result;
     }
-    else (sub[0])++;
     return sub;
-
 }
 
-vector<int> FFT(vector<int> signal){
-    vector<int> result;
-    result.resize(static_cast<int>(signal.size()));
-    cout << "a" << endl;
-    for (int i = 0; i<static_cast<int>(result.size()); i++){
-        cout << result[i] << " ";
+vector<complex<double>> FFT(vector<int> signal){
+    vector<complex<double>> result;
+    vector<complex<double>> arg;
+    for (int i = 0; i< signal.size(); i++) {
+        arg.push_back(complex<double>(signal[i], 0.0));
     }
-    cout << endl << "b" << endl;
-    result = Divide(result);
+    cout << static_cast<int>(arg.size()) << endl;
+    for (int i = 0; i<static_cast<int>(arg.size()); i++){
+        cout << arg[i].real() << " ";
+    }
+    result = Divide(arg);
+    cout << endl << static_cast<int>(result.size()) << endl;
     for (int i = 0; i<static_cast<int>(result.size()); i++){
-        cout << result[i] << " ";
+        cout << result[i].real() << " ";
     }
     cout << endl;
     return result;

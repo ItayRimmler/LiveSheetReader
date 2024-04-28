@@ -4,6 +4,6 @@
 using namespace std;
 int main(){
     vector<int> arr = audio_from_python();
-    arr = FFT(arr);
+    vector<complex<double>> arry = FFT(arr);
     return 0;
 }

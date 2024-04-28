@@ -4,6 +4,7 @@ from ver2.src.lib.all import constants as c
 
 # Imports specific to this script:
 import sounddevice as sd
+import math
 
 class Sound:
     def __init__(self, tempo):
@@ -12,7 +13,7 @@ class Sound:
         self.notes = None
 
     def record(self):
-        recording = sd.rec(int(c.DUR * self.tempo * c.SR), samplerate=c.SR, channels=c.CH, dtype='int16')
+        recording = sd.rec(2 ** math.ceil(math.log2(int(c.DUR * self.tempo * c.SR))), samplerate=c.SR, channels=c.CH, dtype='int16')
         sd.wait()
         self.values = recording[:, 0]
 
