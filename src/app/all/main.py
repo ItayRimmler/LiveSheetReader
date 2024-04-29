@@ -11,15 +11,6 @@ from cv2 import destroyAllWindows as daw
 # Audio Process imports:
 from ver2.src.lib.audio_process.audio_process import process_tempo
 from ver2.src.lib.audio_process.Sound import Sound
-import subprocess as sp
-
-s = Sound(0.01)
-s.record()
-s.send_to_cpp()
-sp.run("main.exe")
-a = g.np.fft.fft(s.values) #[0, 1, 2, 3, 4, 5, 6, 7])
-a = a.real
-print(a)
 
 
 # Reading the file (PDF Process):

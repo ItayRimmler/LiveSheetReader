@@ -39,15 +39,6 @@ vector<complex<double>> FFT(vector<int> signal){
     for (int i = 0; i< signal.size(); i++) {
         arg.push_back(complex<double>(signal[i], 0.0));
     }
-    cout << static_cast<int>(arg.size()) << endl;
-    for (int i = 0; i<static_cast<int>(arg.size()); i++){
-        cout << arg[i].real() << " ";
-    }
     result = Divide(arg);
-    cout << endl << static_cast<int>(result.size()) << endl;
-    for (int i = 0; i<static_cast<int>(result.size()); i++){
-        cout << result[i].real() << " ";
-    }
-    cout << endl;
     return result;
 }
