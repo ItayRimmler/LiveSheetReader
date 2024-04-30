@@ -6,5 +6,6 @@ using namespace std;
 int main(){
     vector<int> arr = audio_from_python();
     vector<complex<double>> arry = FFT(arr);
+    detect_note(arry);
     return 0;
 }

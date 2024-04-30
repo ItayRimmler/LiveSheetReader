@@ -12,6 +12,20 @@ from cv2 import destroyAllWindows as daw
 from ver2.src.lib.audio_process.audio_process import process_tempo
 from ver2.src.lib.audio_process.Sound import Sound
 
+a = Sound(0.7)
+a.record()
+a.send_to_cpp()
+b = g.np.absolute(g.np.fft.fft(a.values))
+b = b/max(b)
+import subprocess as sp
+import json
+output = sp.check_output(["main.exe"])
+result = json.loads(output.decode("utf-8"))
+print("Result:", result)
+
+from matplotlib import pyplot as plt
+
+
 
 # Reading the file (PDF Process):
 temp, tempo = list_of_pdfs()
