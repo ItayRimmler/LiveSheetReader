@@ -8,7 +8,7 @@
 #include <algorithm>
 //#include "C:\Users\User\PycharmProjects\LiveSheetReader\ver2\src\app\all\vcpkg\buildtrees\jsoncpp\src\1.9.5-13b47286ba.clean/include/json/json.h"
 
-#include "./vcpkg/buildtrees/jsoncpp/src/1.9.5-13b47286ba.clean/include/json/json.h"
+//#include "./vcpkg/buildtrees/jsoncpp/src/1.9.5-13b47286ba.clean/include/json/json.h"
 
 
 using namespace std;
@@ -84,13 +84,13 @@ vector<int> prominence(vector<int> initial, vector<double> signal){
     int lefty;
     int righty;
     for (int i = 0; i < initial.size() - 1; i++){
-        auto right = min(initial.begin() + i , initial.begin() + i + 1);
+        auto right = min(signal.begin() + initial[i] , signal.begin() + initial[i+1]);
         righty = *right;
-        if (righty <= 0.1 * signal[i]) result.push_back(i);
+        if (righty <= 0.1 * signal[i]) result.push_back(initial[i]);
     }
-    auto left = min(initial.begin() + initial.size() - 2, initial.begin() + initial.size() - 1);
+    auto left = min(signal.begin() + initial[initial.size() - 2] , signal.begin() + initial[initial.size() - 1]);
     lefty = *left;
-    if (lefty <= 0.1 * signal[initial.size() - 1]) result.push_back(static_cast<int>(initial.size() - 1));
+    if (lefty <= 0.1 * signal[initial[initial.size() - 1]]) result.push_back(initial[initial.size() - 1]);
     return result;
 }
 
@@ -111,10 +111,9 @@ void detect_note(vector<complex<double>> fft){
     vector<int> prominent_peaks;
     vector<int> temp2 = prominence(peaks, normalised_signal);
     prominent_peaks.insert(prominent_peaks.end(),temp2.begin(), temp2.end());
-    Json::Value jsonResult;
     for (int i = 0; i < prominent_peaks.size(); i++) {
-        jsonResult.append(prominent_peaks[i]);
+        cout << prominent_peaks[i] << endl;
     }
-    cout << jsonResult << endl;
+
 
 }

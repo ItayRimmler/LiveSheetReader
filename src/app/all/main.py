@@ -12,19 +12,22 @@ from cv2 import destroyAllWindows as daw
 from ver2.src.lib.audio_process.audio_process import process_tempo
 from ver2.src.lib.audio_process.Sound import Sound
 
-a = Sound(0.7)
+
+# Code for test. Play on the piano a note, see if python was correct, then play 1-3 notes and see if its correct.
+a = Sound(3)
 a.record()
 a.send_to_cpp()
-b = g.np.absolute(g.np.fft.fft(a.values))
-b = b/max(b)
+a.values = g.np.absolute(g.np.fft.fft(a.values))
+a.values = a.values/max(a.values)
 import subprocess as sp
-import json
 output = sp.check_output(["main.exe"])
-result = json.loads(output.decode("utf-8"))
+result = list(map(int, output.strip().split()))
 print("Result:", result)
-
+print(a.index_2_note(result))
 from matplotlib import pyplot as plt
-
+plt.plot(list(range(len(a.values))), a.values)
+plt.plot([list(range(len(a.values)))[i] for i in result], [a.values[i] for i in result], 'ro')
+plt.show()
 
 
 # Reading the file (PDF Process):

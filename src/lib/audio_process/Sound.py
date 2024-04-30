@@ -5,6 +5,7 @@ from ver2.src.lib.all import constants as c
 # Imports specific to this script:
 import sounddevice as sd
 import math
+from ver2.data.note_freqs_and_names import name, frequency
 
 class Sound:
     def __init__(self, tempo):
@@ -21,3 +22,37 @@ class Sound:
         path = "../../../data/recording.bin"
         with open(path, 'wb') as file:
             self.values.tofile(file)
+
+    def index_2_note(self, nums):
+        notes = []
+        fundamentals = []
+        for j, num in enumerate(nums):
+            flag = False
+            freq = (num * c.SR) / (self.values.shape[0] * c.CH)
+            note = 0
+            if j == 0:
+                fundamentals.append(freq)
+            else:
+                for fundamental in fundamentals:
+                    print("Fundamental:", fundamental)
+                    if g.is_multiple_within_threshold(fundamental, freq, 0.25 * fundamental):
+                        flag = True
+                        break
+            if flag:
+                continue
+            fundamentals.append(freq)
+            for i in range(frequency.shape[0] - 1):
+                if (freq < frequency[0]):
+                    note = name[0]
+                    break
+                if (freq > frequency[-1]):
+                    note = name[-1]
+                    break
+                if freq >= frequency[i] and frequency[i + 1] >= freq:
+                    if freq - frequency[i] < (frequency[i + 1] - frequency[i]) / 2:
+                        note = name[i]
+                    else:
+                        note = name[i + 1]
+                    break
+            notes.append(note)
+        return notes
