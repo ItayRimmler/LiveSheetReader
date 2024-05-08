@@ -12,28 +12,18 @@ from cv2 import destroyAllWindows as daw
 from ver2.src.lib.audio_process.audio_process import process_tempo
 from ver2.src.lib.audio_process.Sound import Sound
 
+# TESTBENCHING CODE AND TEMPORARY STUFF:
 
-# Code for test. Play on the piano a note, see if python was correct, then play 1-3 notes and see if its correct.
+# Record for 1 second, FFT and extract the peaks in C++, then turning the peaks into notes:
 a = Sound(1)
 a.record()
 a.send_to_cpp()
-from matplotlib import pyplot as plt
-#plt.plot(a.values)
-#plt.show()
-a.values = g.np.absolute(g.np.fft.fft(a.values))
-#from scipy import signal
-#l, m = signal.butter(4, 1000, fs=c.SR , btype='low')
-#a.values = signal.lfilter(l, m, a.values)
-a.values = a.values/max(a.values)
 import subprocess as sp
 output = sp.check_output(["main.exe"])
 result = list(map(int, output.strip().split()))
-print("Result:", result)
-print(a.index_2_note(result))
-plt.plot(list(range(len(a.values))), a.values)
-plt.plot([list(range(len(a.values)))[i] for i in result], [a.values[i] for i in result], 'ro')
-plt.show()
+a.index_2_note(result)
 
+# ACTUAL BEGINNING OF THE PROGRAM
 
 # Reading the file (PDF Process):
 temp, tempo = list_of_pdfs()

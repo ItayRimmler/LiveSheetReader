@@ -73,7 +73,7 @@ int first_peak(vector<double> signal){
 vector<int> all_peaks(vector<double> signal){
     vector<int> peaks;
     int imax = argmax(signal);
-    double threshold = 0.005 * signal[imax];
+    double threshold = 0.1 * signal[imax];
     for (int i = 1 ; i < signal.size()/2 - 1 ; i++)
         if (signal[i] >= threshold && signal[i - 1] < signal[i] && signal[i] > signal[i + 1]) peaks.push_back(i);
     return peaks;
@@ -85,17 +85,17 @@ vector<int> prominence(vector<int> initial, vector<double> signal){
     int righty;
     auto right = min(signal.begin() + initial[0] , signal.begin() + initial[1]);
     righty = *right;
-    if (righty <= 0.2 * signal[initial[0]]) result.push_back(initial[0]);
+    if (righty <= 0.1 * signal[initial[0]]) result.push_back(initial[0]);
     for (int i = 1; i < initial.size() - 1; i++){
         auto left = min(signal.begin() + initial[i - 1] , signal.begin() + initial[i]);
         lefty = *left;
         auto right = min(signal.begin() + initial[i] , signal.begin() + initial[i+1]);
         righty = *right;
-        if (lefty <= 0.2 * signal[initial[i]] && righty <= 0.2 * signal[initial[i]]) result.push_back(initial[i]);
+        if (lefty <= 0.1 * signal[initial[i]] && righty <= 0.1 * signal[initial[i]]) result.push_back(initial[i]);
     }
     auto left = min(signal.begin() + initial[initial.size() - 2] , signal.begin() + initial[initial.size() - 1]);
     lefty = *left;
-    if (lefty <= 0.2 * signal[initial[initial.size() - 1]]) result.push_back(initial[initial.size() - 1]);
+    if (lefty <= 0.1 * signal[initial[initial.size() - 1]]) result.push_back(initial[initial.size() - 1]);
     return result;
 }
 
@@ -108,9 +108,6 @@ void detect_note(vector<complex<double>> fft){
     double max_element = HP_signal[argmax(HP_signal)];
     for (int i = 0 ; i < signal.size() ; i++)
         normalised_signal.push_back(HP_signal[i]/max_element);
-//    double max_element = HP_signal[argmax(HP_signal)];
-//    for (int i = 0 ; i < signal.size() ; i++)
-//        normalised_signal.push_back(HP_signal[i]);///max_element);
     int fp = first_peak(normalised_signal);
     vector<int> peaks;
     peaks.push_back(fp);

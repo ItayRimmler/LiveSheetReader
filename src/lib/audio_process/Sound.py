@@ -24,31 +24,8 @@ class Sound:
             self.values.tofile(file)
 
     def index_2_note(self, nums):
-        notes = []
-        fundamentals = []
-        for j, num in enumerate(nums):
-            flag = False
-            freq = num#(num * c.SR) / (self.values.shape[0] * c.CH)
-            print(freq)
-            print(fundamentals)
-            a = input()
-            if len(fundamentals) == 0:
-                if ((freq * c.SR) / (self.values.shape[0] * c.CH)) < frequency[0] or ((freq * c.SR) / (self.values.shape[0] * c.CH)) > frequency[-1]:
-                    continue
-                count = 0
-                for mun in nums[j:]:
-                    if g.is_multiple_within_threshold(freq, mun, 0.1 * freq):
-                        count += 1
-                if count < 1:
-                    continue
-            else:
-                for fundamental in fundamentals:
-                    if g.is_multiple_within_threshold(fundamental, freq, 0.1 * fundamental):
-                        flag = True
-                        break
-            if flag:
-                continue
-            fundamentals.append(freq)
+        self.notes = []
+        for num in nums:
             freq = (num * c.SR) / (self.values.shape[0] * c.CH)
             for i in range(frequency.shape[0] - 1):
                 if (freq < frequency[0]):
@@ -63,5 +40,4 @@ class Sound:
                     else:
                         note = name[i + 1]
                     break
-            notes.append(note)
-        return notes
+            self.notes.append(note)
