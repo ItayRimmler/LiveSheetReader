@@ -28,19 +28,28 @@ class Sound:
         fundamentals = []
         for j, num in enumerate(nums):
             flag = False
-            freq = (num * c.SR) / (self.values.shape[0] * c.CH)
-            note = 0
-            if j == 0:
-                fundamentals.append(freq)
+            freq = num#(num * c.SR) / (self.values.shape[0] * c.CH)
+            print(freq)
+            print(fundamentals)
+            a = input()
+            if len(fundamentals) == 0:
+                if ((freq * c.SR) / (self.values.shape[0] * c.CH)) < frequency[0] or ((freq * c.SR) / (self.values.shape[0] * c.CH)) > frequency[-1]:
+                    continue
+                count = 0
+                for mun in nums[j:]:
+                    if g.is_multiple_within_threshold(freq, mun, 0.1 * freq):
+                        count += 1
+                if count < 1:
+                    continue
             else:
                 for fundamental in fundamentals:
-                    print("Fundamental:", fundamental)
-                    if g.is_multiple_within_threshold(fundamental, freq, 0.25 * fundamental):
+                    if g.is_multiple_within_threshold(fundamental, freq, 0.1 * fundamental):
                         flag = True
                         break
             if flag:
                 continue
             fundamentals.append(freq)
+            freq = (num * c.SR) / (self.values.shape[0] * c.CH)
             for i in range(frequency.shape[0] - 1):
                 if (freq < frequency[0]):
                     note = name[0]
