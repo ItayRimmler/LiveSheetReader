@@ -18,8 +18,7 @@ class Sound:
         sd.wait()
         self.values = recording[:, 0]
 
-    def send_to_cpp(self):
-        path = "../../../data/recording.bin"
+    def send_to_cpp(self, path="../../../data/recording.bin"):
         with open(path, 'wb') as file:
             self.values.tofile(file)
 

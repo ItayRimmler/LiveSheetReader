@@ -12,6 +12,7 @@ from cv2 import destroyAllWindows as daw
 from ver2.src.lib.audio_process.audio_process import process_tempo
 from ver2.src.lib.audio_process.Sound import Sound
 
+
 # TESTBENCHING CODE AND TEMPORARY STUFF:
 
 # Record for 1 second, FFT and extract the peaks in C++, then turning the peaks into notes:
@@ -20,8 +21,8 @@ a.record()
 a.send_to_cpp()
 import subprocess as sp
 output = sp.check_output(["main.exe"])
-result = list(map(int, output.strip().split()))
-a.index_2_note(result)
+result = list(map(float, output.strip().split()))
+a.index_2_note(result)  # NOTE: THIS IS WRONG! YOU SHOULD TAKE ONLY THE EVEN INDEXED ELEMENTS!
 
 # ACTUAL BEGINNING OF THE PROGRAM
 

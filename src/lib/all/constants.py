@@ -4,3 +4,4 @@ from ver2.src.lib.all import g
 DUR = 1
 SR = 44100
 CH = 2
+EP = 1000

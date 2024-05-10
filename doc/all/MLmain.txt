@@ -1,0 +1,4 @@
+This is ver2\ML\MLmain.py's description:
+
+This file will process anything ML related: from creating the model to teaching it and finally making him usable
+for the rest of the program.

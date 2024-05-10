@@ -118,6 +118,7 @@ void detect_note(vector<complex<double>> fft){
     prominent_peaks.insert(prominent_peaks.end(),temp2.begin(), temp2.end());
     for (int i = 0; i < prominent_peaks.size(); i++) {
         cout << prominent_peaks[i] << endl;
+        cout << normalised_signal[prominent_peaks[i]] << endl;
     }
 
 
